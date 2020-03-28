@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Install Codiad if not already installed.
+# Install Atheos if not already installed.
 if [ ! -d '/code/.git' ]; then
     cp -r /default-code/. /code
     chmod go+w \
@@ -12,14 +12,14 @@ if [ ! -d '/code/.git' ]; then
 fi
 
 # Set user:group ID.
-CODIAD_UID=${CODIAD_UID:-2743}
-CODIAD_GID=${CODIAD_GID:-2743}
+ATHEOS_UID=${ATHEOS_UID:-2743}
+ATHEOS_GID=${ATHEOS_GID:-2743}
 
-if [ ! "$(id -u john)" -eq "$CODIAD_UID" ]; then
-    usermod -o -u "$CODIAD_UID" john
+if [ ! "$(id -u john)" -eq "$ATHEOS_UID" ]; then
+    usermod -o -u "$ATHEOS_UID" john
 fi
-if [ ! "$(id -g john)" -eq "$CODIAD_GID" ]; then
-    groupmod -o -g "$CODIAD_GID" john
+if [ ! "$(id -g john)" -eq "$ATHEOS_GID" ]; then
+    groupmod -o -g "$ATHEOS_GID" john
 fi
 
 exec "$@"

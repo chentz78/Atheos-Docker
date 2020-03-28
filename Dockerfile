@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Werner Beroux <werner@beroux.com>
+MAINTAINER Liam Siira <liam@siira.us>
 
 # Install required packages.
 RUN set -x \
@@ -55,7 +55,7 @@ RUN set -x \
  && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Codiad and config files.
-RUN git clone https://github.com/Codiad/Codiad /default-code
+RUN git clone https://github.com/Atheos/Atheos /default-code
 COPY root /
 
 RUN chown -R www-data /code

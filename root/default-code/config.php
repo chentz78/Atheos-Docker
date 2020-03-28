@@ -12,7 +12,7 @@ define("BASE_PATH", "/code/");
 // BASE URL TO CODIAD (without trailing slash)
 define("BASE_URL", "localhost");
 // THEME : default, modern or clear (look at /themes)
-define("THEME", "default");
+define("THEME", "atheos");
 // ABSOLUTE PATH, this is used as whitelist for absolute path projects 
 define("WHITEPATHS", BASE_PATH . ",/home,/");
 // SESSIONS (e.g. 7200)
@@ -35,7 +35,7 @@ define("WORKSPACE", BASE_PATH . "/workspace");
 // URLS
 define("WSURL", BASE_URL . "/workspace");
 // Marketplace
-define("MARKETURL", "http://market.codiad.com/json");
+define("MARKETURL", "https://market.atheos.io/json");
 // Update Check
 //define("UPDATEURL", "http://update.codiad.com/?v={VER}&o={OS}&p={PHP}&w={WEB}&a={ACT}");
 //define("ARCHIVEURL", "https://github.com/Codiad/Codiad/archive/master.zip");
