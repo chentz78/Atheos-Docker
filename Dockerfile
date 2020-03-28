@@ -1,69 +1,41 @@
 FROM ubuntu:18.04
-MAINTAINER Liam Siira <liam@siira.us>
+LABEL Liam Siira <liam@siira.us>
 
-# Install required packages.
-RUN set -x \
- && export DEBIAN_FRONTEND=noninteractive \
- && apt update \
- && apt install -y \
-        curl \
-        docker.io \
-        expect \
-        git \
-        nginx \
-        php7.4-fpm \
-        php7.4-json \
-        php7.4-ldap \
-        php7.4-mbstring \
-        php7.4-xml \
-        php7.4-zip \
-    # Install docker-compose.
- && LATEST_DOCKER_COMPOSE_URI=$(curl -L https://github.com/docker/compose/releases/latest | grep -o '[^\"]*/docker-compose-Linux-x86_64') \
- && curl -L "https://github.com/$LATEST_DOCKER_COMPOSE_URI" > /usr/local/bin/docker-compose \
- && chmod +x /usr/local/bin/docker-compose \
-    # Install S6.
- && apt install -y build-essential \
 
- && git clone git://git.skarnet.org/skalibs /tmp/skalibs \
- && cd /tmp/skalibs \
- && git checkout v2.3.10.0 \
- && ./configure \
- && make install \
+# Add To apt Repo
+RUN apt-get update
+RUN apt -y install software-properties-common
+RUN add-apt-repository ppa:ondrej/php
 
- && git clone git://git.skarnet.org/execline /tmp/execline \
- && cd /tmp/execline \
- && git checkout v2.1.5.0 \
- && ./configure \
- && make install \
 
- && git clone git://git.skarnet.org/s6 /tmp/s6 \
- && cd /tmp/s6 \
- && git checkout v2.3.0.0 \
- && ./configure \
- && make install \
+#Setup tzdata
+RUN export DEBIAN FRONTEND=noninteractive
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+RUN apt install -y tzdata
+RUN dpkg-reconfigure --frontend noninteractive tzdata
 
- && cd / \
- && apt-get purge --auto-remove -y build-essential \
- && rm -rf /tmp/* \
-    # Clean -up
- && apt clean \
- && rm -rf /var/lib/apt/lists/* \
-    # Create non-root user (with a randomly chosen UID/GUI).
- && adduser john --system --uid 2743 --group --home /code/workspace \
-    # forward request and error logs to docker log collector
- && ln -sf /dev/stdout /var/log/nginx/access.log \
- && ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Codiad and config files.
-RUN git clone https://github.com/Atheos/Atheos /default-code
-COPY root /
+# Required Packages
+RUN apt-get update
+RUN apt -y install software-properties-common
+RUN add-apt-repository ppa:ondrej/php
+RUN apt-get update
 
-RUN chown -R www-data /code
-VOLUME /code
+RUN apt install -y git apache2
+RUN apt install -y php7.4 php7.4-mbstring php7.4-zip
+
+RUN a2enmod php7.4
+
+RUN service apache2 start
+
+# Clone Atheos and put into the /default-code directory.
+RUN git clone https://github.com/Atheos/Atheos /tmp/Atheos
+RUN mv /tmp/Atheos/* /var/www/html/
+
+RUN ls /var/www/html/
+
+# VOLUME /code
+
 
 # Ports and volumes.
 EXPOSE 80
-
-# Remove error on collaboration on startup.
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["s6-svscan", "/etc/s6"]
