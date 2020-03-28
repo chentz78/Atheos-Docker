@@ -1,41 +1,35 @@
-FROM ubuntu:18.04
-LABEL Liam Siira <liam@siira.us>
+FROM ubuntu:latest
+ENV DEBIAN_FRONTEND=noninteractive
 
+MAINTAINER Liam Siira <liam@siira.us>
+LABEL Description="Web-based cloud IDE with minimal footprint and requirements. " \
+	Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 atheos:latest" \
+	Version="1.0"
 
-# Add To apt Repo
-RUN apt-get update
+RUN apt-get update -y
 RUN apt -y install software-properties-common
 RUN add-apt-repository ppa:ondrej/php
 
+RUN apt-get update -y
+RUN apt-get upgrade -y
 
-#Setup tzdata
-RUN export DEBIAN FRONTEND=noninteractive
-RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-RUN apt install -y tzdata
-RUN dpkg-reconfigure --frontend noninteractive tzdata
+RUN apt-get install -y zip unzip
 
-
-# Required Packages
-RUN apt-get update
-RUN apt -y install software-properties-common
-RUN add-apt-repository ppa:ondrej/php
-RUN apt-get update
-
-RUN apt install -y git apache2
 RUN apt install -y php7.4 php7.4-mbstring php7.4-zip
 
-RUN a2enmod php7.4
+RUN apt install -y git apache2 libapache2-mod-php7.4
 
-RUN service apache2 start
-
-# Clone Atheos and put into the /default-code directory.
+RUN rm /var/www/html/*
 RUN git clone https://github.com/Atheos/Atheos /tmp/Atheos
 RUN mv /tmp/Atheos/* /var/www/html/
 
-RUN ls /var/www/html/
+RUN a2enmod rewrite
+RUN chown -R www-data:www-data /var/www/html
 
-# VOLUME /code
+VOLUME /var/www/html
+VOLUME /etc/apache2
 
+CMD ["apachectl","-D","FOREGROUND"]
 
-# Ports and volumes.
 EXPOSE 80
+EXPOSE 443
