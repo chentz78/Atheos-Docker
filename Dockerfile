@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Liam Siira <liam@siira.us>
 
 # Install required packages.
@@ -11,12 +11,12 @@ RUN set -x \
         expect \
         git \
         nginx \
-        php7.0-fpm \
-        php7.0-json \
-        php7.0-ldap \
-        php7.0-mbstring \
-        php7.0-xml \
-        php7.0-zip \
+        php7.4-fpm \
+        php7.4-json \
+        php7.4-ldap \
+        php7.4-mbstring \
+        php7.4-xml \
+        php7.4-zip \
     # Install docker-compose.
  && LATEST_DOCKER_COMPOSE_URI=$(curl -L https://github.com/docker/compose/releases/latest | grep -o '[^\"]*/docker-compose-Linux-x86_64') \
  && curl -L "https://github.com/$LATEST_DOCKER_COMPOSE_URI" > /usr/local/bin/docker-compose \

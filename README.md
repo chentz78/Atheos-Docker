@@ -1,11 +1,6 @@
 # [Atheos IDE](https://atheos.io/), updated from [Codiad](http://codiad.com/)
 
-# Supported tags and respective `Dockerfile` links
-
-  * [`latest` (Dockerfile)](https://github.com/wernight/docker-codiad/blob/master/Dockerfile) [![](https://images.microbadger.com/badges/image/wernight/codiad.svg)](https://microbadger.com/images/wernight/codiad "Get your own image badge on microbadger.com")
-
-
-## What is Codiad
+## What is Atheos
 
 
 ![Screenshot: Atheos](/docs/atheos.png?raw=true "Atheos")
@@ -36,7 +31,7 @@ For more information on the project please check out **[the docs](https://www.at
         -v $PWD/code:/code \
         -v /etc/localtime:/etc/localtime:ro \
         -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        wernight/codiad
+        atheos/atheos
 
 Then open your browser at `http://localhost:8080`.
 
@@ -70,13 +65,13 @@ Part of what makes our containers work so well is by allowing you to specify you
 You can easily extend to include tool you may need and have them ready
 whenever you re-create your container. Just create a `Dockerfile` like:
 
-    FROM wernight/codiad
+    FROM hlsiira/atheos
     RUN apt update && apt install -y build-essential python
 
 Now you can just build and use your new image:
 
-    $ docker build -t codiad .
-    $ docker run --rm -p 8080:80 codiad
+    $ docker build -t atheos .
+    $ docker run --rm -p 8080:80 atheos
 
 
 ## Feedbacks
