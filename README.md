@@ -3,7 +3,7 @@
 ## What is Atheos
 
 
-![Screenshot: Atheos](/docs/atheos.png?raw=true "Atheos")
+![Screenshot: Atheos](https://www.atheos.io/assets/images/atheos.png "Atheos")
 
 Atheos is an updated and currently maintained fork of Codiad, a web-based IDE framework with a small footprint and minimal requirements. 
 
@@ -13,52 +13,15 @@ Atheos is expanding on that mentality as much as possible, trying to minimizing 
 
 For more information on the project please check out **[the docs](https://www.atheos.io/docs)** or **[the Atheos Website](http://www.atheos.io)**
 
-
-### Features of this image
-
-  * **Simple**: Based on Ubuntu, contains `docker` and `docker-compose` binaries, and is easy to extend so as to include required development tools.
-  * **Performant**: Using Nginx + PHP-FPM (very performant).
-  * **Secure**:
-      * Runs as non-root (Nginx run as `nginx` and PHP-FPM run as UID `2743` by default once started).
-      * Includes a brute-force attack protection.
-
-
-
 ## How to use this image
 
-    docker run --rm -p 8080:80 \
-        -e ATHEOS_UID=$UID -e ATHEOS_GID=$GID \
-        -v $PWD/code:/code \
-        -v /etc/localtime:/etc/localtime:ro \
-        -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        atheos/atheos
+    docker run --rm -p 8080:80 - d atheos:latest
 
 Then open your browser at `http://localhost:8080`.
 
 **Parameters:**
 
   * `-p 80` ‒ the port to expose.
-  * `-e ATHEOS_UID` and `-e ATHEOS_GID` ‒ *(optional)* sets the user / group ID to use for PHP
-    (i.e. it'll be the user / group under which all Codiad users will execute commands if they use the Terminal plugin or such).
-  * `-v /code` ‒ *(optional)* persists your configuration and installed plugins (you may also use a Docker volume).
-  * `-v /etc/localtime` ‒ *(optional)* used for timesync.
-  * `-v /var/run/docker.sock` ‒ *(optional)* allows to **build and run Docker images** from within Codiad
-    (e.g. using the Terminal plugin or Macros plugin). It also gives often nearly `root` access to your Codiad
-    users so use it with care. If you see client API incompatible, you may try to mount also `-v /usr/bin/docker:/usr/bin/docker:ro`.
-    Just ensure that user `ATHEOS_UID:ATHEOS_GID` has read access to that socket file.
-
-
-### User / Group Identifiers
-
-TL;DR - The `ATHEOS_UID` and `ATHEOS_GID` values set the user / group you'd like your container to 'run as'. This can be a user you've created or even root (not recommended).
-
-Part of what makes our containers work so well is by allowing you to specify your own PUID and PGID. This avoids nasty permissions errors with relation to data volumes (-v flags). When an application is installed on the host OS it is normally added to the common group called users, Docker apps due to the nature of the technology can't be added to this group. So we added this feature to let you easily choose when running your containers.
-
-
-### Setting up your projects
-
-  * Store your projects somewhere below `/code/`, for data persistence (or mount another volume).
-
 
 ### Extending the capabilies
 
