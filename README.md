@@ -15,7 +15,7 @@ For more information on the project please check out **[the docs](https://www.at
 
 ## How to use this image
 
-    docker run --rm -p 8080:80 - d atheos:latest
+    docker run --rm -p 8080:80 - d hlsiira/atheos
 
 Then open your browser at `http://localhost:8080`.
 
