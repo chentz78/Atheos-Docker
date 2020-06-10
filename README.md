@@ -34,9 +34,9 @@ whenever you re-create your container. Just create a `Dockerfile` like:
 Now you can just build and use your new image:
 
     $ docker build -t atheos .
-    $ docker run --rm -p 8080:80 atheos
+    $ docker run --name atheos --rm -p 8080:80 -d hlsiira/atheos
 
 
-## Feedbacks
+## Feedback
 
-Suggestions are welcome on our [GitHub issue tracker](https://github.com/Atheos/Atheos-Docker/issues).
+Suggestions are welcome on the [GitHub issue tracker](https://github.com/Atheos/Atheos-Docker/issues).
