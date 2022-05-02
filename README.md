@@ -3,7 +3,7 @@
 ## What is Atheos
 
 
-![Screenshot: Atheos](https://www.atheos.io/assets/images/atheos.png "Atheos")
+<img src="https://www.atheos.io/assets/images/screenshot.png" title="Atheos" style="max-width:100%;">
 
 Atheos is an updated and currently maintained fork of Codiad, a web-based IDE framework with a small footprint and minimal requirements. 
 
@@ -15,7 +15,7 @@ For more information on the project please check out **[the docs](https://www.at
 
 ## How to use this image
 
-    docker run --rm -p 8080:80 - d hlsiira/atheos
+    docker run --rm -p 8080:80 -d hlsiira/atheos
 
 Then open your browser at `http://localhost:8080`.
 
