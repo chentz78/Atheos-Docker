@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
-MAINTAINER Liam Siira <liam@siira.us>
+MAINTAINER Liam Siira <liam@siira.io>
 LABEL Description="Web-based cloud IDE with minimal footprint and requirements. " \
 	Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 hlsiira:latest" \
 	Version="1.0"
