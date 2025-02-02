@@ -1,6 +1,7 @@
 FROM bitnami/minideb:bullseye
 
-ENV TZ="America/Fortaleza"
+#Yours Timezone
+ENV TZ="UTC"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
